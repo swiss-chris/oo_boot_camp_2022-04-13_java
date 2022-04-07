@@ -1,10 +1,9 @@
-# oo_boot_camp_2022-01-25_java
+## oo_boot_camp_2022-04-13_java
 
 Copyright (c) 2022 by Fred George  
 May be used freely except for training; license required for training.
 
-OO Boot Camp reference implementation for Jordanian client in Java
-in January 2022.
+# OO Boot Camp in Java for Swiss client in April 2022
 
 Java is relatively easy to setup with IntelliJ IDEA. 
 Gradle is used for building and testing the project, and is a 
