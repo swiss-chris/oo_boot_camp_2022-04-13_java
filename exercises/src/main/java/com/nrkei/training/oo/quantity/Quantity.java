@@ -6,7 +6,7 @@
 
 package com.nrkei.training.oo.quantity;
 
-public class Quantity {
+public final class Quantity {
 
     private final double amount;
     private final Unit unit;

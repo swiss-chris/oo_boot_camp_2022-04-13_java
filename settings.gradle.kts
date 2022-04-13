@@ -4,5 +4,5 @@
  * @author Fred George  fredgeorge@acm.org
  */
  
-rootProject.name = "oo_boot_camp_template_java"
+rootProject.name = "oo_boot_camp_2022-04-13_java"
 include("exercises", "tests")
