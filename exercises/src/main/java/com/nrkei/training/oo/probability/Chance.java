@@ -10,6 +10,7 @@ import java.util.Objects;
 
 // Understands the likelihood of something specific occurring
 public final class Chance {
+    private static final double EPSILON = 1e-10;
     private static final double CERTAIN_FRACTION = 1.0;
 
     private final double fraction;
@@ -24,12 +25,12 @@ public final class Chance {
     }
 
     private boolean equals(Chance other) {
-        return this.fraction == other.fraction;
+        return Math.abs(this.fraction - other.fraction) < EPSILON;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fraction);
+        return Objects.hash(Math.round(fraction/EPSILON));
     }
 
     public Chance not() {
