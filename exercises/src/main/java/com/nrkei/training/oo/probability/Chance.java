@@ -40,4 +40,9 @@ public final class Chance {
     public Chance and(Chance other) {
         return new Chance(this.fraction * other.fraction);
     }
+
+    // Implemented with DeMorgan's Law https://en.wikipedia.org/wiki/De_Morgan%27s_laws
+    public Chance or(Chance other) {
+        return this.not().and(other.not()).not();
+    }
 }
