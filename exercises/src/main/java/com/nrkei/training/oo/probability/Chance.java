@@ -9,7 +9,7 @@ package com.nrkei.training.oo.probability;
 import java.util.Objects;
 
 // Understands the likelihood of something specific occurring
-public class Chance {
+public final class Chance {
     private final double fraction;
 
     public Chance(double likelihoodAsFraction) {
