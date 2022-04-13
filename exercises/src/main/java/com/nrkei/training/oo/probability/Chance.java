@@ -21,7 +21,7 @@ public final class Chance {
 
     @Override
     public boolean equals(Object other) {
-        return this == other || other instanceof Chance && this.equals((Chance)other);
+        return this == other || other instanceof Chance && this.equals((Chance) other);
     }
 
     private boolean equals(Chance other) {
@@ -30,7 +30,7 @@ public final class Chance {
 
     @Override
     public int hashCode() {
-        return Objects.hash(Math.round(fraction/EPSILON));
+        return Objects.hash(Math.round(fraction / EPSILON));
     }
 
     public Chance not() {
