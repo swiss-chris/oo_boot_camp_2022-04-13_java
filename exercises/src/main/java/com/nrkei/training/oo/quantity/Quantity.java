@@ -6,8 +6,6 @@
 
 package com.nrkei.training.oo.quantity;
 
-import java.util.Objects;
-
 public class Quantity {
 
     private final double amount;
@@ -34,5 +32,17 @@ public class Quantity {
     @Override
     public int hashCode() {
         return unit.hashCode(amount);
+    }
+
+    public Quantity plus(Quantity other) {
+        return new Quantity(this.amount + convertedAmount(other), this.unit);
+    }
+
+    public Quantity negate() {
+        return new Quantity(-amount, unit);
+    }
+
+    public Quantity minus(Quantity other) {
+        return this.plus(other.negate());
     }
 }
