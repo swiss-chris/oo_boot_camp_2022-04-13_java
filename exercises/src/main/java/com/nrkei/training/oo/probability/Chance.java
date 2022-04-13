@@ -10,6 +10,8 @@ import java.util.Objects;
 
 // Understands the likelihood of something specific occurring
 public final class Chance {
+    private static final double CERTAIN_FRACTION = 1.0;
+
     private final double fraction;
 
     public Chance(double likelihoodAsFraction) {
@@ -28,5 +30,9 @@ public final class Chance {
     @Override
     public int hashCode() {
         return Objects.hash(fraction);
+    }
+
+    public Chance not() {
+        return new Chance(CERTAIN_FRACTION - fraction);
     }
 }
