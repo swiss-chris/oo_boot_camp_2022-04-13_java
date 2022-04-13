@@ -6,6 +6,8 @@
 
 package com.nrkei.training.oo.quantity;
 
+import java.util.Objects;
+
 public class Unit {
     public static final Unit TEASPOON = new Unit();
     public static final Unit TABLESPOON = new Unit(3, TEASPOON);
@@ -27,5 +29,13 @@ public class Unit {
 
     public Quantity s(double amount) {
         return new Quantity(amount, this);
+    }
+
+    double convertedAmount(double otherAmount, Unit other) {
+        return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
+    }
+
+    int hashCode(double amount) {
+        return Objects.hashCode(amount * baseUnitRatio);
     }
 }
