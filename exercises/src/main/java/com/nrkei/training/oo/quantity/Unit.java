@@ -6,10 +6,6 @@
 
 package com.nrkei.training.oo.quantity;
 
-import com.nrkei.training.oo.probability.Chance;
-
-import java.awt.image.PixelInterleavedSampleModel;
-
 public class Unit {
     public static final Unit TEASPOON = new Unit();
     public static final Unit TABLESPOON = new Unit(3, TEASPOON);
@@ -27,5 +23,9 @@ public class Unit {
 
     private Unit(double relativeRatio, Unit relativeUnit) {
         baseUnitRatio = relativeRatio * relativeUnit.baseUnitRatio;
+    }
+
+    public Quantity s(double amount) {
+        return new Quantity(amount, this);
     }
 }

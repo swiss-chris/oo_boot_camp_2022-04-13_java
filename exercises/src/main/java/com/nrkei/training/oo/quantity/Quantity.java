@@ -13,7 +13,7 @@ public class Quantity {
     private final double amount;
     private final Unit unit;
 
-    public Quantity(double amount, Unit unit) {
+    Quantity(double amount, Unit unit) {
         this.amount = amount;
         this.unit = unit;
     }
