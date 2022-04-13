@@ -16,6 +16,8 @@ public final class Chance {
     private final double fraction;
 
     public Chance(double likelihoodAsFraction) {
+        if (likelihoodAsFraction < 0.0 || likelihoodAsFraction > 1.0)
+            throw new IllegalArgumentException("Likelihood must be between 0.0 and 1.0, inclusive");
         fraction = likelihoodAsFraction;
     }
 
