@@ -52,4 +52,14 @@ public class QuantityTest {
         assertEquals(FOOT.s(-4), INCH.es(24).minus(YARD.s(2)));
     }
 
+    @Test void crossMetricType()  {
+        assertNotEquals(INCH.es(1), TEASPOON.s(1));
+        assertNotEquals(OUNCE.s(4), FOOT.s(2));
+    }
+
+    @Test void mixedUnitArithmetic() {
+        assertThrows(IllegalArgumentException.class, () ->
+                YARD.s(3).minus(TABLESPOON.s(4)));
+    }
+
 }
