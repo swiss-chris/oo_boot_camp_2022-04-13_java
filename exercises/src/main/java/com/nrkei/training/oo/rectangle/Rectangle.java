@@ -18,6 +18,10 @@ public final class Rectangle {
         this.width = width;
     }
 
+    public static Rectangle square(double side) {
+        return new Rectangle(side, side);
+    }
+
     public double area() {
         return length * width;
     }
