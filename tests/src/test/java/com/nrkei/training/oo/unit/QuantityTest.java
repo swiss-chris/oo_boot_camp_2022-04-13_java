@@ -16,7 +16,7 @@ import static com.nrkei.training.oo.quantity.Unit.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Ensures Quantity operates correctly
-public class QuantityTest {
+class QuantityTest {
 
     @Test void equalityOfLikeUnits() {
         assertEquals(TABLESPOON.s(4), TABLESPOON.s(4));

@@ -16,7 +16,7 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 // Ensures Chance works correctly
-public class ChanceTest {
+class ChanceTest {
     private static final Chance IMPOSSIBLE = new Chance(0.0);
     private static final Chance UNLIKELY = new Chance(0.25);
     private static final Chance EQUALLY_LIKELY = new Chance(0.5);
