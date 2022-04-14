@@ -7,6 +7,7 @@
 package com.nrkei.training.oo.unit;
 
 import com.nrkei.training.oo.Orderable;
+import com.nrkei.training.oo.probability.Chance;
 import com.nrkei.training.oo.rectangle.Rectangle;
 import org.junit.jupiter.api.Test;
 
@@ -21,5 +22,11 @@ class OrderableTest {
                 new Rectangle(2, 3), new Rectangle(4, 6), Rectangle.square(3)))
                 .area());
         assertNull(Orderable.bestOrNull());
+    }
+
+    @Test void leastLikelyChance() {
+        assertEquals(new Chance(0.25), Orderable.bestOrNull(
+                new Chance(0.5), new Chance(0.25), new Chance(0.75)
+        ));
     }
 }
