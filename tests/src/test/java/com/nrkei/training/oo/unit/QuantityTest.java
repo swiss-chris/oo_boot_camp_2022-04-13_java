@@ -43,6 +43,7 @@ public class QuantityTest {
     @Test void hash() {
         assertEquals(TABLESPOON.s(4).hashCode(), TABLESPOON.s(4).hashCode());
         assertEquals(TABLESPOON.s(4).hashCode(), CUP.s(1/4.0).hashCode());
+        assertEquals(CELSIUS.es(10).hashCode(), FAHRENHEIT.s(50).hashCode());
     }
 
     @Test void arithmetic() {
@@ -52,7 +53,7 @@ public class QuantityTest {
         assertEquals(FOOT.s(-4), INCH.es(24).minus(YARD.s(2)));
     }
 
-    @Test void crossMetricType()  {
+    @Test void crossMetricType() {
         assertNotEquals(INCH.es(1), TEASPOON.s(1));
         assertNotEquals(OUNCE.s(4), FOOT.s(2));
     }
@@ -60,6 +61,20 @@ public class QuantityTest {
     @Test void mixedUnitArithmetic() {
         assertThrows(IllegalArgumentException.class, () ->
                 YARD.s(3).minus(TABLESPOON.s(4)));
+    }
+
+    @Test void temperature() {
+        assertTemperatureSymmetry(0, 32);
+        assertTemperatureSymmetry(10, 50);
+        assertTemperatureSymmetry(100, 212);
+        assertTemperatureSymmetry(-40, -40);
+    }
+
+    private void assertTemperatureSymmetry(double celsius, double fahrenheit) {
+        var c = CELSIUS.es(celsius);
+        var f = FAHRENHEIT.s(fahrenheit);
+        assertEquals(c, f);
+        assertEquals(f, c);
     }
 
 }

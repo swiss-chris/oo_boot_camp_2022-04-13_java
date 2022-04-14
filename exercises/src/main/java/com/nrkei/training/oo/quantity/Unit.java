@@ -24,17 +24,28 @@ public final class Unit {
     public static final Unit FURLONG = new Unit(10, CHAIN);
     public static final Unit MILE = new Unit(8, FURLONG);
 
+    public static final Unit CELSIUS = new Unit();
+    public static final Unit FAHRENHEIT = new Unit(5/9.0, 32, CELSIUS);
+
     private final Unit baseUnit;
     private final double baseUnitRatio;
+    private final double offset;
 
     private Unit() {
         baseUnit = this;
         baseUnitRatio = 1.0;
+        offset = 0.0;
     }
 
     private Unit(double relativeRatio, Unit relativeUnit) {
+        this(relativeRatio, 0.0, relativeUnit);
+    }
+
+    private Unit(double relativeRatio, double offset, Unit relativeUnit) {
+        this.offset = offset;
         baseUnit = relativeUnit.baseUnit;
         baseUnitRatio = relativeRatio * relativeUnit.baseUnitRatio;
+
     }
 
     public Quantity s(double amount) {
@@ -47,11 +58,11 @@ public final class Unit {
 
     double convertedAmount(double otherAmount, Unit other) {
         if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
-        return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
+        return (otherAmount - other.offset) * other.baseUnitRatio / this.baseUnitRatio + this.offset;
     }
 
     int hashCode(double amount) {
-        return Objects.hashCode(amount * baseUnitRatio);
+        return Objects.hashCode((amount - offset) * baseUnitRatio);
     }
 
     boolean isCompatible(Unit other) {
