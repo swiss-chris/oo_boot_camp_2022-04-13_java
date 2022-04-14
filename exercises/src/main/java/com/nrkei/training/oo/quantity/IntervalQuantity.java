@@ -6,10 +6,10 @@
 
 package com.nrkei.training.oo.quantity;
 
-public final class IntervalQuantity {
+public class IntervalQuantity {
 
-    private final double amount;
-    private final Unit unit;
+    protected final double amount;
+    protected final Unit unit;
 
     IntervalQuantity(double amount, Unit unit) {
         this.amount = amount;
@@ -29,7 +29,7 @@ public final class IntervalQuantity {
         return this.unit.isCompatible(other.unit);
     }
 
-    private double convertedAmount(IntervalQuantity other) {
+    protected double convertedAmount(IntervalQuantity other) {
         return this.unit.convertedAmount(other.amount, other.unit);
     }
 
