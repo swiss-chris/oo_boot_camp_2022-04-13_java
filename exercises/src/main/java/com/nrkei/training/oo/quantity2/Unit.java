@@ -4,7 +4,7 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-package com.nrkei.training.oo.quantity;
+package com.nrkei.training.oo.quantity2;
 
 // C -> F: /5 *9 +32
 // F -> C: -32 /9 *5\
@@ -32,8 +32,9 @@ public final class Unit {
     public static final Unit FURLONG = new Unit(10, CHAIN);
     public static final Unit MILE = new Unit(8, FURLONG);
 
-    public static final Unit CELSIUS = new Unit();
-    public static final Unit FAHRENHEIT = new Unit(5/9.0, 32, CELSIUS);
+    public static final Unit KELVIN = new Unit();
+    public static final Unit CELSIUS = new Unit(1, -273.15, KELVIN);
+    public static final Unit FAHRENHEIT = new Unit(5/9.0, -459.67, CELSIUS);
 
     private final Unit baseUnit;
     private final double baseUnitRatio;
@@ -65,8 +66,14 @@ public final class Unit {
     }
 
     double convertedAmount(double otherAmount, Unit other) {
+        final double baseUnitAmount = baseUnitAmount(otherAmount, other);
+        return baseUnitAmount / this.baseUnitRatio + this.offset;
+    }
+
+    double baseUnitAmount(double otherAmount, Unit other) {
         if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
-        return (otherAmount - other.offset) * other.baseUnitRatio / this.baseUnitRatio + this.offset;
+        final double otherAmountMinusOffset = otherAmount - other.offset;
+        return otherAmountMinusOffset * other.baseUnitRatio;
     }
 
     int hashCode(double amount) {
