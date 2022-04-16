@@ -12,8 +12,22 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-import static com.nrkei.training.oo.quantity.Unit.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.nrkei.training.oo.quantity.DistanceUnit.FOOT;
+import static com.nrkei.training.oo.quantity.DistanceUnit.INCH;
+import static com.nrkei.training.oo.quantity.DistanceUnit.MILE;
+import static com.nrkei.training.oo.quantity.DistanceUnit.YARD;
+import static com.nrkei.training.oo.quantity.TemperatureUnit.CELSIUS;
+import static com.nrkei.training.oo.quantity.TemperatureUnit.FAHRENHEIT;
+import static com.nrkei.training.oo.quantity.VolumeUnit.CUP;
+import static com.nrkei.training.oo.quantity.VolumeUnit.GALLON;
+import static com.nrkei.training.oo.quantity.VolumeUnit.OUNCE;
+import static com.nrkei.training.oo.quantity.VolumeUnit.PINT;
+import static com.nrkei.training.oo.quantity.VolumeUnit.QUART;
+import static com.nrkei.training.oo.quantity.VolumeUnit.TABLESPOON;
+import static com.nrkei.training.oo.quantity.VolumeUnit.TEASPOON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // Ensures Quantity operates correctly
 public class QuantityTest {
@@ -56,11 +70,6 @@ public class QuantityTest {
     @Test void crossMetricType() {
         assertNotEquals(INCH.es(1), TEASPOON.s(1));
         assertNotEquals(OUNCE.s(4), FOOT.s(2));
-    }
-
-    @Test void mixedUnitArithmetic() {
-        assertThrows(IllegalArgumentException.class, () ->
-                YARD.s(3).minus(TABLESPOON.s(4)));
     }
 
     @Test void temperature() {
