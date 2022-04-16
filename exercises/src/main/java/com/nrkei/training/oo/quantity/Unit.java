@@ -12,8 +12,6 @@ package com.nrkei.training.oo.quantity;
 // 0C -> 32F: +40 /5 *9 (72) -40 (32)
 // 32F -> 0C: +40 /9 *5 -40 (0)
 
-
-
 import java.util.Objects;
 
 public final class Unit {
@@ -64,7 +62,7 @@ public final class Unit {
         return s(amount);
     }
 
-    public double convertedDeltaAmount(double otherAmount, Unit other) {
+    double convertedDeltaAmount(double otherAmount, Unit other) {
         if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
         return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
     }
