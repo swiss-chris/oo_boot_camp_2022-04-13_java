@@ -8,6 +8,8 @@ package com.nrkei.training.oo.quantity;
 
 public final class Quantity {
 
+    private static final double EPSILON = 1e-10;
+
     private final double amount;
     private final Unit unit;
 
@@ -22,7 +24,7 @@ public final class Quantity {
     }
 
     private boolean equals(Quantity other) {
-        return this.isCompatible(other) && this.amount == convertedAmount(other);
+        return this.isCompatible(other) && Math.abs(this.amount - convertedAmount(other)) < EPSILON;
     }
 
     private boolean isCompatible(Quantity other) {
@@ -48,5 +50,14 @@ public final class Quantity {
 
     public Quantity minus(Quantity other) {
         return this.plus(other.negate());
+    }
+
+    public Quantity add(Quantity delta) {
+        return this.unit.s(this.amount + this.unit.convertedDeltaAmount(delta.amount, delta.unit));
+    }
+
+    @Override
+    public String toString() {
+        return "baseUnitAmount: " + this.unit.baseUnitAmount(this.amount, this.unit);
     }
 }
