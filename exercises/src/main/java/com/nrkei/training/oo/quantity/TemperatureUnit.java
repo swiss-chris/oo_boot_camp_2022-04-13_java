@@ -17,6 +17,6 @@ public class TemperatureUnit extends Unit {
     }
 
     private TemperatureUnit(double relativeRatio, double offset, TemperatureUnit relativeUnit) {
-        super(relativeRatio, offset, relativeUnit);
+        super(relativeRatio, relativeUnit, offset);
     }
 }

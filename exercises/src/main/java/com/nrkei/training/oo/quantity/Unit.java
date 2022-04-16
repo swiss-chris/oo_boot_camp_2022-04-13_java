@@ -19,12 +19,12 @@ public abstract class Unit {
     }
 
     Unit(double relativeRatio, Unit relativeUnit) {
-        this(relativeRatio, 0.0, relativeUnit);
+        this(relativeRatio, relativeUnit, 0.0);
     }
 
-    Unit(double relativeRatio, double offset, Unit relativeUnit) {
-        this.offset = offset;
+    Unit(double relativeRatio, Unit relativeUnit, double offset) {
         baseUnitRatio = relativeRatio * relativeUnit.baseUnitRatio;
+        this.offset = offset;
 
     }
 
