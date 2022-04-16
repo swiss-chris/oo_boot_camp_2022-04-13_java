@@ -18,6 +18,7 @@ import static com.nrkei.training.oo.quantity.DistanceUnit.MILE;
 import static com.nrkei.training.oo.quantity.DistanceUnit.YARD;
 import static com.nrkei.training.oo.quantity.TemperatureUnit.CELSIUS;
 import static com.nrkei.training.oo.quantity.TemperatureUnit.FAHRENHEIT;
+import static com.nrkei.training.oo.quantity.TemperatureUnit.KELVIN;
 import static com.nrkei.training.oo.quantity.VolumeUnit.CUP;
 import static com.nrkei.training.oo.quantity.VolumeUnit.GALLON;
 import static com.nrkei.training.oo.quantity.VolumeUnit.OUNCE;
@@ -73,7 +74,8 @@ public class QuantityTest {
     }
 
     @Test void temperature() {
-        assertTemperatureSymmetry(0, 32);
+        assertTemperatureSymmetry(-273.15, -459.67, 0);
+        assertTemperatureSymmetry(0, 32, 273.15);
         assertTemperatureSymmetry(10, 50);
         assertTemperatureSymmetry(100, 212);
         assertTemperatureSymmetry(-40, -40);
@@ -85,11 +87,22 @@ public class QuantityTest {
         assertEquals(FAHRENHEIT.es(1+9/5d), FAHRENHEIT.es(1).plus(CELSIUS.es(1)));
     }
 
+    private void assertTemperatureSymmetry(double celsius, double fahrenheit, double kelvin) {
+        var c = CELSIUS.es(celsius);
+        var f = FAHRENHEIT.s(fahrenheit);
+        var k = KELVIN.s(kelvin);
+        assertEquals(c, f);
+        assertEquals(c, k);
+        assertEquals(f, c);
+        assertEquals(f, k);
+        assertEquals(k, c);
+        assertEquals(k, f);
+    }
+
     private void assertTemperatureSymmetry(double celsius, double fahrenheit) {
         var c = CELSIUS.es(celsius);
         var f = FAHRENHEIT.s(fahrenheit);
         assertEquals(c, f);
         assertEquals(f, c);
     }
-
 }

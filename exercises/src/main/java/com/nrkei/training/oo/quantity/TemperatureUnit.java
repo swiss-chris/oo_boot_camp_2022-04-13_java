@@ -10,6 +10,7 @@ public class TemperatureUnit extends Unit {
 
     public static final TemperatureUnit CELSIUS = new TemperatureUnit();
     public static final TemperatureUnit FAHRENHEIT = new TemperatureUnit(5/9.0, 32, CELSIUS);
+    public static final TemperatureUnit KELVIN = new TemperatureUnit(1, 273.15, CELSIUS);
 
     private TemperatureUnit() {
         super();
