@@ -10,8 +10,8 @@ import java.util.Objects;
 
 public abstract class Unit {
 
-    final double baseUnitRatio;
-    final double offset;
+    private final double baseUnitRatio;
+    private final double offset;
 
     Unit() {
         baseUnitRatio = 1.0;
