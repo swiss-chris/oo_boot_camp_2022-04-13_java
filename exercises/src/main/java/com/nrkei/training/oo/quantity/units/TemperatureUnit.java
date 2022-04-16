@@ -4,9 +4,11 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-package com.nrkei.training.oo.quantity;
+package com.nrkei.training.oo.quantity.units;
 
-public class TemperatureUnit extends Unit {
+import com.nrkei.training.oo.quantity.IntervalUnit;
+
+public class TemperatureUnit extends IntervalUnit {
 
     public static final TemperatureUnit CELSIUS = new TemperatureUnit();
     public static final TemperatureUnit FAHRENHEIT = new TemperatureUnit(5/9.0, 32, CELSIUS);

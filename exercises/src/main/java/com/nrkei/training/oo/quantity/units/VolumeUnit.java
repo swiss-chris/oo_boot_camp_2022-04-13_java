@@ -4,9 +4,11 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-package com.nrkei.training.oo.quantity;
+package com.nrkei.training.oo.quantity.units;
 
-public class VolumeUnit extends Unit {
+import com.nrkei.training.oo.quantity.IntervalUnit;
+
+public class VolumeUnit extends IntervalUnit {
     public static final VolumeUnit TEASPOON = new VolumeUnit();
     public static final VolumeUnit TABLESPOON = new VolumeUnit(3, TEASPOON);
     public static final VolumeUnit OUNCE = new VolumeUnit(2, TABLESPOON);

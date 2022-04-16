@@ -12,25 +12,25 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-import static com.nrkei.training.oo.quantity.DistanceUnit.FOOT;
-import static com.nrkei.training.oo.quantity.DistanceUnit.INCH;
-import static com.nrkei.training.oo.quantity.DistanceUnit.MILE;
-import static com.nrkei.training.oo.quantity.DistanceUnit.YARD;
-import static com.nrkei.training.oo.quantity.TemperatureUnit.CELSIUS;
-import static com.nrkei.training.oo.quantity.TemperatureUnit.FAHRENHEIT;
-import static com.nrkei.training.oo.quantity.TemperatureUnit.KELVIN;
-import static com.nrkei.training.oo.quantity.VolumeUnit.CUP;
-import static com.nrkei.training.oo.quantity.VolumeUnit.GALLON;
-import static com.nrkei.training.oo.quantity.VolumeUnit.OUNCE;
-import static com.nrkei.training.oo.quantity.VolumeUnit.PINT;
-import static com.nrkei.training.oo.quantity.VolumeUnit.QUART;
-import static com.nrkei.training.oo.quantity.VolumeUnit.TABLESPOON;
-import static com.nrkei.training.oo.quantity.VolumeUnit.TEASPOON;
+import static com.nrkei.training.oo.quantity.units.DistanceUnit.FOOT;
+import static com.nrkei.training.oo.quantity.units.DistanceUnit.INCH;
+import static com.nrkei.training.oo.quantity.units.DistanceUnit.MILE;
+import static com.nrkei.training.oo.quantity.units.DistanceUnit.YARD;
+import static com.nrkei.training.oo.quantity.units.TemperatureUnit.CELSIUS;
+import static com.nrkei.training.oo.quantity.units.TemperatureUnit.FAHRENHEIT;
+import static com.nrkei.training.oo.quantity.units.TemperatureUnit.KELVIN;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.CUP;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.GALLON;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.OUNCE;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.PINT;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.QUART;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.TABLESPOON;
+import static com.nrkei.training.oo.quantity.units.VolumeUnit.TEASPOON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// Ensures Quantity operates correctly
+// Ensures DeltaQuantity operates correctly
 public class QuantityTest {
 
     @Test void equalityOfLikeUnits() {
@@ -62,10 +62,10 @@ public class QuantityTest {
     }
 
     @Test void arithmetic() {
-        assertEquals(QUART.s(0.5), TABLESPOON.s(6).plus(OUNCE.s(13)));
+        assertEquals(QUART.s(0.5), TABLESPOON.s(6).plus(OUNCE.delta(13)));
         assertEquals(TABLESPOON.s(-6), TABLESPOON.s(6).negate());
-        assertEquals(PINT.s(-0.5), TABLESPOON.s(10).minus(OUNCE.s(13)));
-        assertEquals(FOOT.s(-4), INCH.es(24).minus(YARD.s(2)));
+        assertEquals(PINT.s(-0.5), TABLESPOON.s(10).minus(OUNCE.delta(13)));
+        assertEquals(FOOT.s(-4), INCH.es(24).minus(YARD.delta(2)));
     }
 
     @Test void crossMetricType() {
@@ -82,9 +82,9 @@ public class QuantityTest {
     }
 
     @Test void plusTemperature() {
-        assertEquals(CELSIUS.es(1), CELSIUS.es(0).plus(CELSIUS.es(1)));
-        assertEquals(CELSIUS.es(5/9d), CELSIUS.es(0).plus(FAHRENHEIT.es(1)));
-        assertEquals(FAHRENHEIT.es(1+9/5d), FAHRENHEIT.es(1).plus(CELSIUS.es(1)));
+        assertEquals(CELSIUS.es(1), CELSIUS.es(0).plus(CELSIUS.delta(1)));
+        assertEquals(CELSIUS.es(5/9d), CELSIUS.es(0).plus(FAHRENHEIT.delta(1)));
+        assertEquals(FAHRENHEIT.es(1+9/5d), FAHRENHEIT.es(1).plus(CELSIUS.delta(1)));
     }
 
     private void assertTemperatureSymmetry(double celsius, double fahrenheit, double kelvin) {

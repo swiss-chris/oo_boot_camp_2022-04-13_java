@@ -4,9 +4,11 @@
  * @author Fred George  fredgeorge@acm.org
  */
 
-package com.nrkei.training.oo.quantity;
+package com.nrkei.training.oo.quantity.units;
 
-public class DistanceUnit extends Unit {
+import com.nrkei.training.oo.quantity.IntervalUnit;
+
+public class DistanceUnit extends IntervalUnit {
     public static final DistanceUnit INCH = new DistanceUnit();
     public static final DistanceUnit FOOT = new DistanceUnit(12, INCH);
     public static final DistanceUnit YARD = new DistanceUnit(3, FOOT);
