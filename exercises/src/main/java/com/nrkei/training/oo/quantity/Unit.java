@@ -62,8 +62,8 @@ public abstract class Unit {
         return baseUnitAmount(otherAmount, other) / this.baseUnitRatio + this.offset;
     }
 
-    double baseUnitAmount(double otherAmount, Unit other) {
-        return (otherAmount - other.offset) * other.baseUnitRatio;
+    static double baseUnitAmount(double amount, Unit unit) {
+        return (amount - unit.offset) * unit.baseUnitRatio;
     }
 
     int hashCode(double amount) {
