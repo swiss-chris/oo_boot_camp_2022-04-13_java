@@ -32,6 +32,7 @@ public final class Unit {
 
     public static final Unit CELSIUS = new Unit();
     public static final Unit FAHRENHEIT = new Unit(5/9.0, 32, CELSIUS);
+    public static final Unit KELVIN = new Unit(1, 273.15, CELSIUS);
 
     private final Unit baseUnit;
     private final double baseUnitRatio;
@@ -72,8 +73,8 @@ public final class Unit {
         return baseUnitAmount(otherAmount, other) / this.baseUnitRatio + this.offset;
     }
 
-    double baseUnitAmount(double otherAmount, Unit other) {
-        return (otherAmount - other.offset) * other.baseUnitRatio;
+    static double baseUnitAmount(double amount, Unit unit) {
+        return (amount - unit.offset) * unit.baseUnitRatio;
     }
 
     int hashCode(double amount) {
