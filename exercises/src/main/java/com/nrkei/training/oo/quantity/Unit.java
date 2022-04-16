@@ -60,8 +60,12 @@ public abstract class Unit {
     }
 
     double convertedAmount(double otherAmount, Unit other) {
+        return baseUnitAmount(otherAmount, other) / this.baseUnitRatio + this.offset;
+    }
+
+    double baseUnitAmount(double otherAmount, Unit other) {
         if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
-        return (otherAmount - other.offset) * other.baseUnitRatio / this.baseUnitRatio + this.offset;
+        return (otherAmount - other.offset) * other.baseUnitRatio;
     }
 
     int hashCode(double amount) {
