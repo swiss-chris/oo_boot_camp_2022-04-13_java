@@ -70,10 +70,10 @@ public class QuantityTest {
         assertTemperatureSymmetry(-40, -40);
     }
 
-    @Test void addTemperature() {
-        assertEquals(CELSIUS.es(1), CELSIUS.es(0).add(CELSIUS.es(1)));
-        assertEquals(CELSIUS.es(5/9d), CELSIUS.es(0).add(FAHRENHEIT.es(1)));
-        assertEquals(FAHRENHEIT.es(1+9/5d), FAHRENHEIT.es(1).add(CELSIUS.es(1)));
+    @Test void plusTemperature() {
+        assertEquals(CELSIUS.es(1), CELSIUS.es(0).plus(CELSIUS.es(1)));
+        assertEquals(CELSIUS.es(5/9d), CELSIUS.es(0).plus(FAHRENHEIT.es(1)));
+        assertEquals(FAHRENHEIT.es(1+9/5d), FAHRENHEIT.es(1).plus(CELSIUS.es(1)));
     }
 
     private void assertTemperatureSymmetry(double celsius, double fahrenheit) {

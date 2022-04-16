@@ -41,7 +41,7 @@ public final class Quantity {
     }
 
     public Quantity plus(Quantity other) {
-        return new Quantity(this.amount + convertedAmount(other), this.unit);
+        return this.unit.s(this.amount + this.unit.convertedDeltaAmount(other.amount, other.unit));
     }
 
     public Quantity negate() {
@@ -50,10 +50,6 @@ public final class Quantity {
 
     public Quantity minus(Quantity other) {
         return this.plus(other.negate());
-    }
-
-    public Quantity add(Quantity delta) {
-        return this.unit.s(this.amount + this.unit.convertedDeltaAmount(delta.amount, delta.unit));
     }
 
     @Override

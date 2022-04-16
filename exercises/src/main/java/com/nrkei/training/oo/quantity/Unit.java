@@ -65,6 +65,7 @@ public final class Unit {
     }
 
     public double convertedDeltaAmount(double otherAmount, Unit other) {
+        if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
         return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
     }
 
