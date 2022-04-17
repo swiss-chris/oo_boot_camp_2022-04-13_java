@@ -11,9 +11,9 @@ public class DeltaQuantity {
     static final double EPSILON = 1e-10;
 
     final double amount;
-    final DeltaUnit unit;
+    final Unit unit;
 
-    DeltaQuantity(double amount, DeltaUnit unit) {
+    DeltaQuantity(double amount, Unit unit) {
         this.amount = amount;
         this.unit = unit;
     }

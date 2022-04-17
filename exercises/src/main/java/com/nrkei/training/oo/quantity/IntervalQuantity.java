@@ -29,10 +29,6 @@ public final class IntervalQuantity extends Quantity {
         return ((IntervalUnit) this.unit).s(this.amount + this.unit.convertedAmount(other.amount, other.unit));
     }
 
-    public IntervalQuantity negate() {
-        return new IntervalQuantity(-amount, (IntervalUnit) unit);
-    }
-
     public IntervalQuantity minus(DeltaQuantity other) {
         return this.plus(other.negate());
     }

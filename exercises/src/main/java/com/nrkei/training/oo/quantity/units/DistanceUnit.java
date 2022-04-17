@@ -6,9 +6,9 @@
 
 package com.nrkei.training.oo.quantity.units;
 
-import com.nrkei.training.oo.quantity.IntervalUnit;
+import com.nrkei.training.oo.quantity.DeltaUnit;
 
-public class DistanceUnit extends IntervalUnit {
+public class DistanceUnit extends DeltaUnit {
     public static final DistanceUnit INCH = new DistanceUnit();
     public static final DistanceUnit FOOT = new DistanceUnit(12, INCH);
     public static final DistanceUnit YARD = new DistanceUnit(3, FOOT);

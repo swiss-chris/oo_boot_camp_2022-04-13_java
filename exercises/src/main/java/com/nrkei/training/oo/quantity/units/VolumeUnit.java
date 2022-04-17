@@ -6,9 +6,9 @@
 
 package com.nrkei.training.oo.quantity.units;
 
-import com.nrkei.training.oo.quantity.IntervalUnit;
+import com.nrkei.training.oo.quantity.DeltaUnit;
 
-public class VolumeUnit extends IntervalUnit {
+public class VolumeUnit extends DeltaUnit {
     public static final VolumeUnit TEASPOON = new VolumeUnit();
     public static final VolumeUnit TABLESPOON = new VolumeUnit(3, TEASPOON);
     public static final VolumeUnit OUNCE = new VolumeUnit(2, TABLESPOON);

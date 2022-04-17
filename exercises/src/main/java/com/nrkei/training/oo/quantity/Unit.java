@@ -8,32 +8,28 @@ package com.nrkei.training.oo.quantity;
 
 import java.util.Objects;
 
-public abstract class DeltaUnit extends Unit {
+public abstract class Unit {
 
     final double baseUnitRatio;
 
-    protected DeltaUnit() {
+    protected Unit() {
         baseUnitRatio = 1.0;
     }
 
-    protected DeltaUnit(double relativeRatio, DeltaUnit relativeUnit) {
+    protected Unit(double relativeRatio, Unit relativeUnit) {
         baseUnitRatio = relativeRatio * relativeUnit.baseUnitRatio;
     }
 
-    public DeltaQuantity s(double amount) {
-        return delta(amount);
+    boolean isCompatible(Unit other) {
+        return this.getClass() == other.getClass();
     }
 
-    public DeltaQuantity es(double amount) {
-        return s(amount);
+    double convertedAmount(double otherAmount, Unit other) {
+        return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
     }
 
     public DeltaQuantity delta(double amount) {
         return new DeltaQuantity(amount, this);
-    }
-
-    double convertedAmount(double otherAmount, DeltaUnit other) {
-        return otherAmount * other.baseUnitRatio / this.baseUnitRatio;
     }
 
     int hashCode(double amount) {

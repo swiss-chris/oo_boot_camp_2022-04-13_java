@@ -8,7 +8,7 @@ package com.nrkei.training.oo.quantity;
 
 import java.util.Objects;
 
-public abstract class IntervalUnit extends DeltaUnit {
+public abstract class IntervalUnit extends Unit {
 
     private final double offset;
 
@@ -17,11 +17,11 @@ public abstract class IntervalUnit extends DeltaUnit {
         offset = 0.0;
     }
 
-    protected IntervalUnit(double relativeRatio, DeltaUnit relativeUnit) {
+    protected IntervalUnit(double relativeRatio, IntervalUnit relativeUnit) {
         this(relativeRatio, relativeUnit, 0.0);
     }
 
-    protected IntervalUnit(double relativeRatio, DeltaUnit relativeUnit, double offset) {
+    protected IntervalUnit(double relativeRatio, IntervalUnit relativeUnit, double offset) {
         super(relativeRatio, relativeUnit);
         this.offset = offset;
     }

@@ -11,9 +11,9 @@ public abstract class Quantity {
     static final double EPSILON = 1e-10;
 
     final double amount;
-    final DeltaUnit unit;
+    final Unit unit;
 
-    Quantity(double amount, DeltaUnit unit) {
+    Quantity(double amount, Unit unit) {
         this.amount = amount;
         this.unit = unit;
     }
