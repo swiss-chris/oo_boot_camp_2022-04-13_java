@@ -7,7 +7,6 @@
 package com.nrkei.training.oo.unit;
 
 import com.nrkei.training.oo.probability.Chance;
-import com.nrkei.training.oo.probability.Probability;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -71,10 +70,4 @@ public class ChanceTest {
         assertThrows(IllegalArgumentException.class, () -> new Chance(1.01));
     }
 
-    @Test void andNotOr() {
-        var a = new Probability(0.45);
-        var b = new Probability(0.64);
-        assertEquals(a.or(b).not(), a.not().and(b.not()));
-        // !(a || b) == (!a and !b)
-    }
 }
