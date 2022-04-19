@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.nrkei.training.oo.graph.Link.FEWEST_HOPS;
+import static com.nrkei.training.oo.graph.Link.LEAST_COST;
 
 // Understands its neighbors
 public class Node {
@@ -20,17 +21,17 @@ public class Node {
     private final List<Link> links = new ArrayList<>();
 
     public boolean canReach(Node destination) {
-        return hopCount(destination, noVisitedNodes()) != UNREACHABLE;
+        return cost(destination, noVisitedNodes(), LEAST_COST) != UNREACHABLE;
     }
 
     public int hopCount(Node destination) {
-        double result = hopCount(destination, noVisitedNodes());
+        double result = cost(destination, noVisitedNodes(), FEWEST_HOPS);
         if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
         return (int) result;
     }
 
     public double cost(Node destination) {
-        double result = cost(destination, noVisitedNodes(), FEWEST_HOPS);
+        double result = cost(destination, noVisitedNodes(), LEAST_COST);
         if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
         return result;
     }

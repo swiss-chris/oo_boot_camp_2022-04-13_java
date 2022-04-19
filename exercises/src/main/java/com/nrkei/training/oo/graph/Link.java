@@ -10,7 +10,8 @@ import java.util.List;
 
 // Understands a connection from one Node to another
 class Link {
-    static CostStrategy FEWEST_HOPS = (double cost) -> cost;
+    static CostStrategy LEAST_COST = (double cost) -> cost;
+    static CostStrategy FEWEST_HOPS = (double cost) -> 1.0;
 
     private final double cost;
     private final Node target;
