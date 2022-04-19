@@ -7,6 +7,7 @@
 package com.nrkei.training.oo.graph;
 
 import com.nrkei.training.oo.graph.Link.CostStrategy;
+import com.nrkei.training.oo.graph.Path.ActualPath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +35,17 @@ public class Node {
 
     public Path path(Node destination) {
         Path result = path(destination, noVisitedNodes());
-        if (result == null) throw new IllegalArgumentException("Destination is not reachable");
+        if (result == Path.NONE) throw new IllegalArgumentException("Destination is not reachable");
         return result;
     }
 
     Path path(Node destination, List<Node> visitedNodes) {
-        if (this == destination) return new Path();
-        if (visitedNodes.contains(this)) return null;
-        Path champion = null;
+        if (this == destination) return new ActualPath();
+        if (visitedNodes.contains(this)) return Path.NONE;
+        Path champion = Path.NONE;
         for (Link l : links) {
             Path challenger = l.path(destination, copyWithThis(visitedNodes));
-            if (challenger == null) continue;
-            if (champion == null || challenger.cost() < champion.cost()) champion = challenger;
+            if (challenger.cost() < champion.cost()) champion = challenger;
         }
         return champion;
     }
