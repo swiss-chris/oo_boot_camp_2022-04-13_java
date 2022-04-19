@@ -6,7 +6,6 @@
 
 package com.nrkei.training.oo.graph;
 
-import com.nrkei.training.oo.graph.Link.CostStrategy;
 import com.nrkei.training.oo.graph.Path.ActualPath;
 
 import java.util.ArrayList;
@@ -14,25 +13,20 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
 
-import static com.nrkei.training.oo.graph.Link.FEWEST_HOPS;
-import static com.nrkei.training.oo.graph.Link.LEAST_COST;
-
 // Understands its neighbors
 public class Node {
-    private static final double UNREACHABLE = Double.POSITIVE_INFINITY;
-
     private final List<Link> links = new ArrayList<>();
 
     public boolean canReach(Node destination) {
-        return cost(destination, noVisitedNodes(), LEAST_COST) != UNREACHABLE;
+        return path(destination, noVisitedNodes(), Path::cost) instanceof ActualPath;
     }
 
     public int hopCount(Node destination) {
-        return (int) cost(destination, FEWEST_HOPS);
+        return path(destination, Path::hopCount).hopCount();
     }
 
     public double cost(Node destination) {
-        return cost(destination, LEAST_COST);
+        return path(destination).cost();
     }
 
     public Path path(Node destination) {
@@ -52,21 +46,6 @@ public class Node {
                 .map(l -> l.path(destination, copyWithThis(visitedNodes), strategy))
                 .min(Comparator.comparingDouble(strategy))
                 .orElse(Path.NONE);
-    }
-
-    private double cost(Node destination, CostStrategy strategy) {
-        double result = cost(destination, noVisitedNodes(), strategy);
-        if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
-        return result;
-    }
-
-    double cost(Node destination, List<Node> visitedNodes, CostStrategy strategy) {
-        if (this == destination) return 0.0;
-        if (visitedNodes.contains(this)) return UNREACHABLE;
-        return links.stream()
-                .mapToDouble(link -> link.cost(destination, copyWithThis(visitedNodes), strategy))
-                .min()
-                .orElse(UNREACHABLE);
     }
 
     private List<Node> copyWithThis(List<Node> originals) {
