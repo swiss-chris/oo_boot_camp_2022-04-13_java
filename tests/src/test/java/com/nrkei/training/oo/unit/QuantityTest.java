@@ -64,8 +64,7 @@ class QuantityTest {
     }
 
     @Test void temperature() {
-        assertTemperatureSymmetry(-273.15, -459.67, 0);
-        assertTemperatureSymmetry(0, 32, 273.15);
+        assertTemperatureSymmetry(0, 32);
         assertTemperatureSymmetry(10, 50);
         assertTemperatureSymmetry(100, 212);
         assertTemperatureSymmetry(-40, -40);
@@ -77,22 +76,11 @@ class QuantityTest {
 //        CELSIUS.es(10).negate();
     }
 
-    private void assertTemperatureSymmetry(double celsius, double fahrenheit, double kelvin) {
-        var c = CELSIUS.es(celsius);
-        var f = FAHRENHEIT.s(fahrenheit);
-        var k = KELVIN.s(kelvin);
-        assertEquals(c, f);
-        assertEquals(c, k);
-        assertEquals(f, c);
-        assertEquals(f, k);
-        assertEquals(k, c);
-        assertEquals(k, f);
-    }
-
     private void assertTemperatureSymmetry(double celsius, double fahrenheit) {
         var c = CELSIUS.es(celsius);
         var f = FAHRENHEIT.s(fahrenheit);
         assertEquals(c, f);
         assertEquals(f, c);
     }
+
 }

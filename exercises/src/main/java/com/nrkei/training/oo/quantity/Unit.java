@@ -6,12 +6,6 @@
 
 package com.nrkei.training.oo.quantity;
 
-// C -> F: /5 *9 +32
-// F -> C: -32 /9 *5\
-
-// 0C -> 32F: +40 /5 *9 (72) -40 (32)
-// 32F -> 0C: +40 /9 *5 -40 (0)
-
 import java.util.Objects;
 
 public abstract class Unit {
@@ -59,11 +53,7 @@ public abstract class Unit {
 
     double convertedAmount(double otherAmount, Unit other) {
         if (!this.isCompatible(other)) throw new IllegalArgumentException("Incompatible Units");
-        return baseUnitAmount(otherAmount, other) / this.baseUnitRatio + this.offset;
-    }
-
-    static double baseUnitAmount(double amount, Unit unit) {
-        return (amount - unit.offset) * unit.baseUnitRatio;
+        return (otherAmount - other.offset) * other.baseUnitRatio / this.baseUnitRatio + this.offset;
     }
 
     int hashCode(double amount) {
