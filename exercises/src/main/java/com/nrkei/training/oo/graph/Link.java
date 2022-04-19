@@ -21,10 +21,6 @@ class Link {
         this.target = target;
     }
 
-    double hopCount(Node destination, List<Node> visitedNodes) {
-        return target.hopCount(destination, visitedNodes) + 1;
-    }
-
     double cost(Node destination, List<Node> visitedNodes, CostStrategy strategy) {
         return target.cost(destination, visitedNodes, strategy) + strategy.cost(cost);
     }

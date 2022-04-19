@@ -25,13 +25,15 @@ public class Node {
     }
 
     public int hopCount(Node destination) {
-        double result = cost(destination, noVisitedNodes(), FEWEST_HOPS);
-        if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
-        return (int) result;
+        return (int) cost(destination, FEWEST_HOPS);
     }
 
     public double cost(Node destination) {
-        double result = cost(destination, noVisitedNodes(), LEAST_COST);
+        return cost(destination, LEAST_COST);
+    }
+
+    private double cost(Node destination, CostStrategy strategy) {
+        double result = cost(destination, noVisitedNodes(), strategy);
         if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
         return result;
     }
@@ -41,15 +43,6 @@ public class Node {
         if (visitedNodes.contains(this)) return UNREACHABLE;
         return links.stream()
                 .mapToDouble(link -> link.cost(destination, copyWithThis(visitedNodes), strategy))
-                .min()
-                .orElse(UNREACHABLE);
-    }
-
-    double hopCount(Node destination, List<Node> visitedNodes) {
-        if (this == destination) return 0.0;
-        if (visitedNodes.contains(this)) return UNREACHABLE;
-        return links.stream()
-                .mapToDouble(link -> link.hopCount(destination, copyWithThis(visitedNodes)))
                 .min()
                 .orElse(UNREACHABLE);
     }
