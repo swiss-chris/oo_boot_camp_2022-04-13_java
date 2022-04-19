@@ -6,8 +6,6 @@
 
 package com.nrkei.training.oo.graph;
 
-import com.nrkei.training.oo.quantity.IntervalQuantity;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +13,10 @@ import java.util.List;
 public class Node {
     private static final double UNREACHABLE = Double.POSITIVE_INFINITY;
 
-    private final List<Node> neighbors = new ArrayList<>();
+    private final List<Link> links = new ArrayList<>();
 
     public Node to(Node neighbor) {
-        neighbors.add(neighbor);
+        links.add(new Link(neighbor));
         return neighbor;
     }
 
@@ -32,11 +30,11 @@ public class Node {
         return (int) result;
     }
 
-    private double hopCount(Node destination, List<Node> visitedNodes) {
+    double hopCount(Node destination, List<Node> visitedNodes) {
         if (this == destination) return 0.0;
         if (visitedNodes.contains(this)) return UNREACHABLE;
-        return neighbors.stream()
-                .mapToDouble(n -> n.hopCount(destination, copyWithThis(visitedNodes)) + 1)
+        return links.stream()
+                .mapToDouble(link -> link.hopCount(destination, copyWithThis(visitedNodes)))
                 .min()
                 .orElse(UNREACHABLE);
     }
