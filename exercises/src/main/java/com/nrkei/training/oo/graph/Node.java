@@ -10,6 +10,7 @@ import com.nrkei.training.oo.graph.Link.CostStrategy;
 import com.nrkei.training.oo.graph.Path.ActualPath;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.nrkei.training.oo.graph.Link.FEWEST_HOPS;
@@ -42,12 +43,10 @@ public class Node {
     Path path(Node destination, List<Node> visitedNodes) {
         if (this == destination) return new ActualPath();
         if (visitedNodes.contains(this)) return Path.NONE;
-        Path champion = Path.NONE;
-        for (Link l : links) {
-            Path challenger = l.path(destination, copyWithThis(visitedNodes));
-            if (challenger.cost() < champion.cost()) champion = challenger;
-        }
-        return champion;
+        return links.stream()
+                .map(l -> l.path(destination, visitedNodes))
+                .min(Comparator.comparingDouble(Path::cost))
+                .orElse(Path.NONE);
     }
 
     private double cost(Node destination, CostStrategy strategy) {
