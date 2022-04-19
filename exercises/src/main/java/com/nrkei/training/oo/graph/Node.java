@@ -6,8 +6,12 @@
 
 package com.nrkei.training.oo.graph;
 
+import com.nrkei.training.oo.graph.Link.CostStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.nrkei.training.oo.graph.Link.FEWEST_HOPS;
 
 // Understands its neighbors
 public class Node {
@@ -26,16 +30,16 @@ public class Node {
     }
 
     public double cost(Node destination) {
-        double result = cost(destination, noVisitedNodes());
+        double result = cost(destination, noVisitedNodes(), FEWEST_HOPS);
         if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
         return result;
     }
 
-    double cost(Node destination, List<Node> visitedNodes) {
+    double cost(Node destination, List<Node> visitedNodes, CostStrategy strategy) {
         if (this == destination) return 0.0;
         if (visitedNodes.contains(this)) return UNREACHABLE;
         return links.stream()
-                .mapToDouble(link -> link.cost(destination, copyWithThis(visitedNodes)))
+                .mapToDouble(link -> link.cost(destination, copyWithThis(visitedNodes), strategy))
                 .min()
                 .orElse(UNREACHABLE);
     }

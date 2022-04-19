@@ -10,6 +10,7 @@ import java.util.List;
 
 // Understands a connection from one Node to another
 class Link {
+    static CostStrategy FEWEST_HOPS = (double cost) -> cost;
 
     private final double cost;
     private final Node target;
@@ -23,7 +24,11 @@ class Link {
         return target.hopCount(destination, visitedNodes) + 1;
     }
 
-    double cost(Node destination, List<Node> visitedNodes) {
-        return target.cost(destination, visitedNodes) + cost;
+    double cost(Node destination, List<Node> visitedNodes, CostStrategy strategy) {
+        return target.cost(destination, visitedNodes, strategy) + strategy.cost(cost);
+    }
+
+    interface CostStrategy {
+        double cost(double amount);
     }
 }
