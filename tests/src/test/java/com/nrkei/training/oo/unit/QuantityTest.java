@@ -6,16 +6,32 @@
 
 package com.nrkei.training.oo.unit;
 
+import com.nrkei.training.oo.quantity.IntervalUnit;
+import com.nrkei.training.oo.quantity.RatioUnit;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
-import static com.nrkei.training.oo.quantity.Unit.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.nrkei.training.oo.quantity.RatioUnit.CELSIUS;
+import static com.nrkei.training.oo.quantity.RatioUnit.CUP;
+import static com.nrkei.training.oo.quantity.RatioUnit.FOOT;
+import static com.nrkei.training.oo.quantity.RatioUnit.GALLON;
+import static com.nrkei.training.oo.quantity.RatioUnit.INCH;
+import static com.nrkei.training.oo.quantity.RatioUnit.MILE;
+import static com.nrkei.training.oo.quantity.RatioUnit.OUNCE;
+import static com.nrkei.training.oo.quantity.RatioUnit.PINT;
+import static com.nrkei.training.oo.quantity.RatioUnit.QUART;
+import static com.nrkei.training.oo.quantity.RatioUnit.TABLESPOON;
+import static com.nrkei.training.oo.quantity.RatioUnit.TEASPOON;
+import static com.nrkei.training.oo.quantity.RatioUnit.YARD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// Ensures Quantity operates correctly
+// Ensures RatioQuantity operates correctly
 public class QuantityTest {
 
     @Test void equalityOfLikeUnits() {
@@ -43,7 +59,7 @@ public class QuantityTest {
     @Test void hash() {
         assertEquals(TABLESPOON.s(4).hashCode(), TABLESPOON.s(4).hashCode());
         assertEquals(TABLESPOON.s(4).hashCode(), CUP.s(1/4.0).hashCode());
-        assertEquals(CELSIUS.es(10).hashCode(), FAHRENHEIT.s(50).hashCode());
+        assertEquals(RatioUnit.CELSIUS.es(10).hashCode(), RatioUnit.FAHRENHEIT.s(18).hashCode());
     }
 
     @Test void arithmetic() {
@@ -63,18 +79,29 @@ public class QuantityTest {
                 YARD.s(3).minus(TABLESPOON.s(4)));
     }
 
-    @Test void temperature() {
-        assertTemperatureSymmetry(0, 32);
-        assertTemperatureSymmetry(10, 50);
-        assertTemperatureSymmetry(100, 212);
-        assertTemperatureSymmetry(-40, -40);
+    @Test void temperature_Ratio() {
+        assertTemperatureSymmetry_Ratio(0, 0);
+        assertTemperatureSymmetry_Ratio(10, 18);
     }
 
-    private void assertTemperatureSymmetry(double celsius, double fahrenheit) {
-        var c = CELSIUS.es(celsius);
-        var f = FAHRENHEIT.s(fahrenheit);
+    private void assertTemperatureSymmetry_Ratio(double celsius, double fahrenheit) {
+        var c = RatioUnit.CELSIUS.es(celsius);
+        var f = RatioUnit.FAHRENHEIT.s(fahrenheit);
         assertEquals(c, f);
         assertEquals(f, c);
     }
 
+    @Test void temperature_Interval() {
+        assertTemperatureSymmetry_Interval(0, 32);
+        assertTemperatureSymmetry_Interval(10, 50);
+        assertTemperatureSymmetry_Interval(100, 212);
+        assertTemperatureSymmetry_Interval(-40, -40);
+    }
+
+    private void assertTemperatureSymmetry_Interval(double celsius, double fahrenheit) {
+        var c = IntervalUnit.CELSIUS.es(celsius);
+        var f = IntervalUnit.FAHRENHEIT.s(fahrenheit);
+        assertEquals(c, f);
+        assertEquals(f, c);
+    }
 }
