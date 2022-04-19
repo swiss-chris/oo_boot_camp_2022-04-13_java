@@ -15,11 +15,6 @@ public class Node {
 
     private final List<Link> links = new ArrayList<>();
 
-    public Node to(Node neighbor) {
-        links.add(new Link(neighbor));
-        return neighbor;
-    }
-
     public boolean canReach(Node destination) {
         return hopCount(destination, noVisitedNodes()) != UNREACHABLE;
     }
@@ -47,5 +42,24 @@ public class Node {
 
     private List<Node> noVisitedNodes() {
         return new ArrayList<>();
+    }
+
+    public LinkBuilder cost(double amount) {
+        return new LinkBuilder(amount, links);
+    }
+
+    public static class LinkBuilder {
+        private final double cost;
+        private final List<Link> links;
+
+        LinkBuilder(double cost, List<Link> links) {
+            this.cost = cost;
+            this.links = links;
+        }
+
+        public Node to(Node neighbor) {
+            links.add(new Link(cost, neighbor));
+            return neighbor;
+        }
     }
 }
