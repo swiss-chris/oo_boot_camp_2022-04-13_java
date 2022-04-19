@@ -26,7 +26,7 @@ public final class Unit {
 
     public static final Unit CELSIUS = new Unit(false);
     public static final Unit FAHRENHEIT = new Unit(5/9.0, 32, CELSIUS);
-    public static final Unit KELVIN = new Unit(1, -273.15, CELSIUS);
+    public static final Unit KELVIN = new Unit(1, 273.15, CELSIUS);
 
     private final boolean isRatio;
     private final Unit baseUnit;
