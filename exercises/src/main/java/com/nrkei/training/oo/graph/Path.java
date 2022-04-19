@@ -10,47 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Understands a particular route from one Node to another
-public abstract class Path {
+public class Path {
+    private final List<Link> links = new ArrayList<>();
 
-    static Path NONE = new NoPath();
-
-    Path prepend(Link link) { return this; }
-
-    public abstract double cost();
-
-    public abstract int hopCount();
-
-    static class ActualPath extends Path {
-        private final List<Link> links = new ArrayList<>();
-
-        @Override
-        Path prepend(Link link) {
-            links.add(0, link);
-            return this;
-        }
-
-        @Override
-        public double cost() {
-            return Link.cost(links);
-        }
-
-        @Override
-        public int hopCount() {
-            return links.size();
-        }
-
+    Path prepend(Link link) {
+        links.add(0, link);
+        return this;
     }
 
-    static class NoPath extends Path {
-
-        @Override
-        public double cost() {
-            return Double.POSITIVE_INFINITY;
-        }
-
-        @Override
-        public int hopCount() {
-            return Integer.MAX_VALUE;
-        }
+    public double cost() {
+        return Link.cost(links);
     }
+
+    public int hopCount() {
+        return links.size();
+    }
+
 }

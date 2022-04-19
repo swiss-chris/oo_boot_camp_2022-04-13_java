@@ -6,10 +6,7 @@
 
 package com.nrkei.training.oo.graph;
 
-import com.nrkei.training.oo.graph.Path.ActualPath;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
@@ -23,7 +20,7 @@ public class Node {
     private final List<Link> links = new ArrayList<>();
 
     public boolean canReach(Node destination) {
-        return path(destination, noVisitedNodes(), Path::cost) instanceof ActualPath;
+        return !paths(destination).isEmpty();
     }
 
     public int hopCount(Node destination) {
@@ -43,7 +40,7 @@ public class Node {
     }
 
     Stream<Path> paths(Node destination, List<Node> visitedNodes) {
-        if (this == destination) return Stream.of(new ActualPath());
+        if (this == destination) return Stream.of(new Path());
         if (visitedNodes.contains(this)) return Stream.empty();
         return links.stream().flatMap(link -> link.paths(destination, copyWithThis(visitedNodes)));
     }
@@ -52,15 +49,6 @@ public class Node {
         List<Path> allPaths = paths(destination);
         if (allPaths.isEmpty()) throw new IllegalArgumentException("Destination unreachable");
         return min(allPaths, Comparator.comparingDouble(strategy));
-    }
-
-    Path path(Node destination, List<Node> visitedNodes, ToDoubleFunction<Path> strategy) {
-        if (this == destination) return new ActualPath();
-        if (visitedNodes.contains(this)) return Path.NONE;
-        return links.stream()
-                .map(l -> l.path(destination, copyWithThis(visitedNodes), strategy))
-                .min(Comparator.comparingDouble(strategy))
-                .orElse(Path.NONE);
     }
 
     private List<Node> copyWithThis(List<Node> originals) {
