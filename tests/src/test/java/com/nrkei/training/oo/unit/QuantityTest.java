@@ -63,6 +63,14 @@ public class QuantityTest {
                 YARD.s(3).minus(TABLESPOON.s(4)));
     }
 
+    @Test
+    void addNonRatioUnits() {
+        assertThrows(IllegalArgumentException.class, () -> CELSIUS.s(1).plus(CELSIUS.s(2)));
+        assertThrows(IllegalArgumentException.class, () -> CELSIUS.s(1).minus(FAHRENHEIT.s(2)));
+        assertThrows(IllegalArgumentException.class, () -> KELVIN.s(1).minus(CELSIUS.s(2)));
+        assertThrows(IllegalArgumentException.class, () -> CELSIUS.s(1).negate());
+    }
+
     @Test void temperature() {
         assertTemperatureSymmetry(0, 32);
         assertTemperatureSymmetry(10, 50);

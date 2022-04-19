@@ -39,10 +39,12 @@ public final class Quantity {
     }
 
     public Quantity plus(Quantity other) {
+        if (!other.unit.isRatio()) throw new IllegalArgumentException("Cannot add/subtract non ratio units");
         return new Quantity(this.amount + convertedAmount(other), this.unit);
     }
 
     public Quantity negate() {
+        if (!this.unit.isRatio()) throw new IllegalArgumentException("Cannot negate a non ratio unit");
         return new Quantity(-amount, unit);
     }
 
