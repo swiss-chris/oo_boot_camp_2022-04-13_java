@@ -14,7 +14,7 @@ public abstract class Path {
 
     static Path NONE = new NoPath();
 
-    void prepend(Link link) { } // Ignore by default
+    Path prepend(Link link) { return this; }
 
     public abstract double cost();
 
@@ -23,31 +23,34 @@ public abstract class Path {
     static class ActualPath extends Path {
         private final List<Link> links = new ArrayList<>();
 
-        void prepend(Link link) {
+        @Override
+        Path prepend(Link link) {
             links.add(0, link);
+            return this;
         }
 
+        @Override
         public double cost() {
             return Link.cost(links);
         }
 
+        @Override
         public int hopCount() {
             return links.size();
         }
 
     }
 
-
     static class NoPath extends Path {
 
+        @Override
         public double cost() {
             return Double.POSITIVE_INFINITY;
         }
 
+        @Override
         public int hopCount() {
             return Integer.MAX_VALUE;
         }
-
     }
-
 }
