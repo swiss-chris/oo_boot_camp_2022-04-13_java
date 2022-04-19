@@ -6,12 +6,14 @@
 
 package com.nrkei.training.oo.graph;
 
+import com.nrkei.training.oo.quantity.IntervalQuantity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Understands its neighbors
 public class Node {
-    private static final int UNREACHABLE = -1;
+    private static final double UNREACHABLE = Double.POSITIVE_INFINITY;
 
     private final List<Node> neighbors = new ArrayList<>();
 
@@ -25,17 +27,17 @@ public class Node {
     }
 
     public int hopCount(Node destination) {
-        int result = hopCount(destination, noVisitedNodes());
+        double result = hopCount(destination, noVisitedNodes());
         if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
-        return result;
+        return (int) result;
     }
 
-    private int hopCount(Node destination, List<Node> visitedNodes) {
-        if (this == destination) return 0;
+    private double hopCount(Node destination, List<Node> visitedNodes) {
+        if (this == destination) return 0.0;
         if (visitedNodes.contains(this)) return UNREACHABLE;
-        int champion = UNREACHABLE;
+        double champion = UNREACHABLE;
         for(Node n : neighbors) {
-            int neighborHopCount = n.hopCount(destination, copyWithThis(visitedNodes));
+            double neighborHopCount = n.hopCount(destination, copyWithThis(visitedNodes));
             if (neighborHopCount == UNREACHABLE) continue;
             if (champion == UNREACHABLE || neighborHopCount + 1 < champion) champion = neighborHopCount + 1;
         }
