@@ -34,11 +34,13 @@ public class Node {
         if (this == destination) return 0;
         if (visitedNodes.contains(this)) return UNREACHABLE;
         visitedNodes.add(this);
+        int champion = UNREACHABLE;
         for(Node n : neighbors) {
             int neighborHopCount = n.hopCount(destination, visitedNodes);
-            if (neighborHopCount != UNREACHABLE) return neighborHopCount + 1;
+            if (neighborHopCount == UNREACHABLE) continue;
+            if (champion == UNREACHABLE || neighborHopCount + 1 < champion) champion = neighborHopCount + 1;
         }
-        return UNREACHABLE;
+        return champion;
     }
 
     private List<Node> noVisitedNodes() {
