@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // Understands its neighbors
 public class Node {
@@ -31,6 +33,16 @@ public class Node {
 
     public Path path(Node destination) {
         return path(destination, Path::cost);
+    }
+
+    public List<Path> paths(Node destination) {
+        return paths(destination, noVisitedNodes()).collect(Collectors.toList());
+    }
+
+    Stream<Path> paths(Node destination, List<Node> visitedNodes) {
+        if (this == destination) return Stream.of(new ActualPath());
+        if (visitedNodes.contains(this)) return Stream.empty();
+        return links.stream().flatMap(link -> link.paths(destination, copyWithThis(visitedNodes)));
     }
 
     private Path path(Node destination, ToDoubleFunction<Path> strategy) {
