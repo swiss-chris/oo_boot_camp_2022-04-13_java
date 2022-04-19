@@ -56,4 +56,15 @@ class GraphTest {
         assertThrows(IllegalArgumentException.class, () -> A.hopCount(B));
         assertThrows(IllegalArgumentException.class, () -> B.hopCount(G));
     }
+
+    @Test void cost() {
+        assertEquals(0, B.cost(B));
+        assertEquals(5, B.cost(A));
+        assertEquals(4, B.cost(F));
+        assertEquals(7, B.cost(D));
+        assertEquals(10, C.cost(F));
+        assertThrows(IllegalArgumentException.class, () -> G.cost(B));
+        assertThrows(IllegalArgumentException.class, () -> A.cost(B));
+        assertThrows(IllegalArgumentException.class, () -> B.cost(G));
+    }
 }
