@@ -9,11 +9,14 @@ package com.nrkei.training.oo.graph;
 import com.nrkei.training.oo.graph.Path.ActualPath;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.Collections.min;
 
 // Understands its neighbors
 public class Node {
@@ -46,9 +49,9 @@ public class Node {
     }
 
     private Path path(Node destination, ToDoubleFunction<Path> strategy) {
-        Path result = path(destination, noVisitedNodes(), strategy);
-        if (result == Path.NONE) throw new IllegalArgumentException("Destination is not reachable");
-        return result;
+        List<Path> allPaths = paths(destination);
+        if (allPaths.isEmpty()) throw new IllegalArgumentException("Destination unreachable");
+        return min(allPaths, Comparator.comparingDouble(strategy));
     }
 
     Path path(Node destination, List<Node> visitedNodes, ToDoubleFunction<Path> strategy) {
