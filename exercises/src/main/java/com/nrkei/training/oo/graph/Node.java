@@ -37,9 +37,8 @@ public class Node {
         if (visitedNodes.contains(this)) return UNREACHABLE;
         double champion = UNREACHABLE;
         for(Node n : neighbors) {
-            double neighborHopCount = n.hopCount(destination, copyWithThis(visitedNodes));
-            if (neighborHopCount == UNREACHABLE) continue;
-            if (champion == UNREACHABLE || neighborHopCount + 1 < champion) champion = neighborHopCount + 1;
+            double challenger = n.hopCount(destination, copyWithThis(visitedNodes)) + 1;
+            if ( challenger < champion) champion = challenger;
         }
         return champion;
     }
