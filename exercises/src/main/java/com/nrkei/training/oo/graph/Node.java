@@ -33,14 +33,19 @@ public class Node {
     private int hopCount(Node destination, List<Node> visitedNodes) {
         if (this == destination) return 0;
         if (visitedNodes.contains(this)) return UNREACHABLE;
-        visitedNodes.add(this);
         int champion = UNREACHABLE;
         for(Node n : neighbors) {
-            int neighborHopCount = n.hopCount(destination, visitedNodes);
+            int neighborHopCount = n.hopCount(destination, copyWithThis(visitedNodes));
             if (neighborHopCount == UNREACHABLE) continue;
             if (champion == UNREACHABLE || neighborHopCount + 1 < champion) champion = neighborHopCount + 1;
         }
         return champion;
+    }
+
+    private List<Node> copyWithThis(List<Node> originals) {
+        List<Node> results = new ArrayList<>(originals);
+        results.add(this);
+        return results;
     }
 
     private List<Node> noVisitedNodes() {
