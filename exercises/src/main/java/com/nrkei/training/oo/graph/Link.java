@@ -26,4 +26,8 @@ class Link {
     Stream<Path> paths(Node destination, List<Node> visitedNodes) {
         return target.paths(destination, visitedNodes).map(p -> p.prepend(this));
     }
+
+    Stream<Path> paths(List<Node> visitedNodes) {
+        return target.paths(visitedNodes).map(p -> p.prepend(this));
+    }
 }
