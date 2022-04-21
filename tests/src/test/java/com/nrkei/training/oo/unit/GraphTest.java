@@ -9,8 +9,10 @@ package com.nrkei.training.oo.unit;
 import com.nrkei.training.oo.graph.Node;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // Ensures Graph algorithms work correctly
 class GraphTest {
@@ -66,5 +68,19 @@ class GraphTest {
         assertThrows(IllegalArgumentException.class, () -> G.cost(B));
         assertThrows(IllegalArgumentException.class, () -> A.cost(B));
         assertThrows(IllegalArgumentException.class, () -> B.cost(G));
+    }
+
+    @Test void path() {
+        assertEquals(0, B.path(B).hopCount());
+        assertEquals(0.0, B.path(B).cost());
+        assertFalse(B.path(B).contains(B));
+        assertThrows(IllegalArgumentException.class, () -> B.path(G));
+        assertEquals(1, B.path(C).hopCount());
+        assertEquals(6.0, B.path(C).cost());
+        assertTrue(B.path(C).contains(C));
+        assertFalse(B.path(C).contains(D));
+        assertFalse(B.path(C).contains(B));
+        assertTrue(B.path(D).contains(C));
+        assertEquals(3.0, C.path(E).cost());
     }
 }

@@ -13,7 +13,7 @@ class Link {
     static CostStrategy LEAST_COST = (double cost) -> cost;
     static CostStrategy FEWEST_HOPS = (double cost) -> 1.0;
 
-    private final double cost;
+    final double cost;
     private final Node target;
 
     Link(double cost, Node target) {
@@ -21,8 +21,21 @@ class Link {
         this.target = target;
     }
 
+    static double cost(List<Link> links) {
+        return links.stream().mapToDouble(link -> link.cost).sum();
+    }
+
+    static boolean contains(List<Link> links, Node node) {
+        return links.stream().anyMatch(link -> link.target == node);
+    }
+
     double cost(Node destination, List<Node> visitedNodes, CostStrategy strategy) {
         return target.cost(destination, visitedNodes, strategy) + strategy.cost(cost);
+    }
+
+    Path path(Node destination, List<Node> visitedNodes) {
+        final Path path = target.path(destination, visitedNodes);
+        return path.prepend(this);
     }
 
     interface CostStrategy {

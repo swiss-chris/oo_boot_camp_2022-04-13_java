@@ -9,13 +9,16 @@ package com.nrkei.training.oo.graph;
 import com.nrkei.training.oo.graph.Link.CostStrategy;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.nrkei.training.oo.graph.Link.FEWEST_HOPS;
 import static com.nrkei.training.oo.graph.Link.LEAST_COST;
+import static com.nrkei.training.oo.graph.PathImpl.NULL_OBJECT;
 
 // Understands its neighbors
 public class Node {
+    static final String DESTINATION_IS_NOT_REACHABLE = "Destination is not reachable";
     private static final double UNREACHABLE = Double.POSITIVE_INFINITY;
 
     private final List<Link> links = new ArrayList<>();
@@ -32,9 +35,27 @@ public class Node {
         return cost(destination, LEAST_COST);
     }
 
+    public Path path(Node destination) {
+        Path result = path(destination, noVisitedNodes());
+        if (result == NULL_OBJECT) {
+            throw new IllegalArgumentException(DESTINATION_IS_NOT_REACHABLE);
+        }
+        return result;
+    }
+
+    Path path(Node destination, List<Node> visitedNodes) {
+        if (this == destination) return new PathImpl();
+        if (visitedNodes.contains(this)) return NULL_OBJECT;
+
+        return links.stream()
+                .map(link -> link.path(destination, copyWithThis(visitedNodes)))
+                .min(Comparator.comparing(Path::cost))
+                .orElse(NULL_OBJECT);
+    }
+
     private double cost(Node destination, CostStrategy strategy) {
         double result = cost(destination, noVisitedNodes(), strategy);
-        if (result == UNREACHABLE) throw new IllegalArgumentException("Destination is not reachable");
+        if (result == UNREACHABLE) throw new IllegalArgumentException(DESTINATION_IS_NOT_REACHABLE);
         return result;
     }
 
