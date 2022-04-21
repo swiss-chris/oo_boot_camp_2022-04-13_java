@@ -52,9 +52,9 @@ public class Node {
     }
 
     private Path path(Node destination, ToDoubleFunction<Path> strategy) {
-        List<Path> allPaths = paths(destination);
-        if (allPaths.isEmpty()) throw new IllegalArgumentException("Destination unreachable");
-        return min(allPaths, Comparator.comparingDouble(strategy));
+        return paths(destination).stream()
+                .min(Comparator.comparingDouble(strategy))
+                .orElseThrow(() -> new IllegalArgumentException("Destination unreachable"));
     }
 
     private List<Node> copyWithThis(List<Node> originals) {
